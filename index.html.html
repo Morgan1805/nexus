@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)file:///C:/Users/USER/Downloads/nexus-nft_5.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS — The Future of Digital Assets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="./NEXUS — The Future of Digital Assets_files/css2" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #020508;
+      --bg2: #060d14;
+      --white: #e8f4ff;
+      --dim: #8fa8c0;
+      --cyan: #00d4ff;
+      --gold: #f0a500;
+      --border: #0d2035;
+      --card: #070f18;
+      --green: #00ff88;
+      --red: #ff4455;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'DM Mono', monospace; font-size: 14px; overflow-x: hidden; cursor: none; }
+
+    /* CURSOR */
+    .cursor { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: screen; }
+    .cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(0,212,255,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; }
+    .cursor-trail { position: fixed; pointer-events: none; z-index: 9997; }
+
+    /* CANVAS PARTICLES */
+    #particleCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* SCANLINES */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 48px;
+      background: rgba(2,5,8,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      animation: navDrop 0.8s ease forwards;
+    }
+    @keyframes navDrop { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 4px; color: var(--white); text-decoration: none; position: relative; }
+    .nav-logo span { color: var(--cyan); }
+    .nav-logo::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--cyan); transition: width 0.3s; }
+    .nav-logo:hover::after { width: 100%; }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--dim); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--cyan); transition: width 0.3s; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .btn-connect {
+      font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      padding: 10px 22px; background: transparent; border: 1px solid var(--cyan); color: var(--cyan);
+      cursor: none; position: relative; overflow: hidden; transition: color 0.3s;
+    }
+    .btn-connect::before { content: ''; position: absolute; inset: 0; background: var(--cyan); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; z-index: -1; }
+    .btn-connect:hover { color: var(--bg); }
+    .btn-connect:hover::before { transform: scaleX(1); }
+
+    .wallet-status { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--dim); }
+    .wallet-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 8px var(--green); }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 48px 80px; position: relative; overflow: hidden; z-index: 2; }
+
+    /* Glowing orb */
+    .orb {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      animation: orbFloat 6s ease-in-out infinite;
+    }
+    .orb1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 70%); top: 10%; left: 20%; animation-delay: 0s; }
+    .orb2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,255,136,0.05) 0%, transparent 70%); bottom: 10%; right: 10%; animation-delay: 2s; }
+    @keyframes orbFloat { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-30px) scale(1.05)} }
+
+    .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan);
+      border: 1px solid rgba(0,212,255,0.3); padding: 6px 14px; margin-bottom: 28px;
+      animation: fadeUp 0.8s 0.2s both;
+    }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 8px var(--cyan); }
+
+    .hero-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(48px, 6vw, 82px); line-height: 0.95; letter-spacing: -1px; margin-bottom: 24px; animation: fadeUp 0.8s 0.4s both; }
+    .hero-title .outline { color: transparent; -webkit-text-stroke: 1px rgba(232,244,255,0.5); }
+    .hero-title .accent { color: var(--cyan); position: relative; }
+
+    /* GLITCH */
+    .glitch { position: relative; }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute; top: 0; left: 0;
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: inherit; line-height: inherit;
+      color: var(--cyan);
+    }
+    .glitch::before { color: var(--red); clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%); animation: glitch1 3s infinite; }
+    .glitch::after { color: var(--green); clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%); animation: glitch2 3s infinite; }
+    @keyframes glitch1 { 0%,90%,100%{transform:translate(0)} 92%{transform:translate(-3px,1px)} 94%{transform:translate(3px,-1px)} 96%{transform:translate(-2px,2px)} }
+    @keyframes glitch2 { 0%,88%,100%{transform:translate(0)} 90%{transform:translate(3px,-1px)} 93%{transform:translate(-3px,1px)} 95%{transform:translate(2px,-2px)} }
+
+    .hero-desc { font-size: 14px; color: var(--dim); line-height: 1.8; max-width: 440px; margin-bottom: 40px; animation: fadeUp 0.8s 0.6s both; }
+
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; animation: fadeUp 0.8s 0.8s both; }
+
+    .btn-primary {
+      font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      padding: 14px 32px; background: var(--cyan); border: none; color: var(--bg); cursor: none;
+      font-weight: 500; transition: all 0.3s; text-decoration: none; display: inline-block;
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::after { content: ''; position: absolute; inset: 0; background: var(--white); transform: scaleX(0); transform-origin: right; transition: transform 0.3s; z-index: -1; }
+    .btn-primary:hover { background: var(--white); box-shadow: 0 0 30px rgba(0,212,255,0.4); }
+
+    .btn-secondary {
+      font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      padding: 14px 32px; background: transparent; border: 1px solid var(--border); color: var(--dim);
+      cursor: none; transition: all 0.3s; text-decoration: none; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 20px rgba(0,212,255,0.1); }
+
+    .hero-stats { display: flex; gap: 40px; animation: fadeUp 0.8s 1s both; }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 24px; color: var(--white); }
+    .stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes gradShift { 0%{background-position:0%} 100%{background-position:200%} }
+
+    /* NFT CARD 3D */
+    .hero-right { display: flex; justify-content: center; align-items: center; animation: fadeUp 0.8s 0.5s both; }
+
+    .nft-scene { perspective: 1000px; }
+
+    .nft-showcase {
+      width: 320px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease;
+      box-shadow: 0 0 60px rgba(0,212,255,0.1);
+    }
+
+    .nft-showcase::before {
+      content: '';
+      position: absolute; top: -1px; left: 20%; right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
+
+    /* Animated border */
+    .nft-showcase::after {
+      content: '';
+      position: absolute; inset: -1px;
+      background: linear-gradient(90deg, var(--cyan), var(--green), var(--cyan));
+      background-size: 200%;
+      animation: borderFlow 3s linear infinite;
+      z-index: -1;
+      opacity: 0.3;
+    }
+    @keyframes borderFlow { 0%{background-position:0%} 100%{background-position:200%} }
+
+    .nft-image {
+      width: 100%; aspect-ratio: 1;
+      background: #050e18;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* RINGS */
+    .ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(0,212,255,0.2);
+      animation: ringPulse 3s ease-in-out infinite;
+    }
+    .ring1 { width: 260px; height: 260px; animation-delay: 0s; }
+    .ring2 { width: 200px; height: 200px; animation-delay: 0.5s; border-color: rgba(0,255,136,0.15); }
+    .ring3 { width: 140px; height: 140px; animation-delay: 1s; }
+    .ring4 { width: 80px; height: 80px; animation-delay: 1.5s; border-color: rgba(0,212,255,0.4); }
+    @keyframes ringPulse { 0%,100%{transform:scale(1);opacity:0.5} 50%{transform:scale(1.05);opacity:1} }
+
+    /* Rotating arc */
+    .arc {
+      position: absolute; border-radius: 50%;
+      border: 1px solid transparent;
+    }
+    .arc1 { width: 230px; height: 230px; border-top-color: var(--cyan); border-right-color: rgba(0,212,255,0.2); animation: spin 4s linear infinite; }
+    .arc2 { width: 170px; height: 170px; border-bottom-color: var(--green); border-left-color: rgba(0,255,136,0.2); animation: spin 3s linear infinite reverse; }
+    .arc3 { width: 110px; height: 110px; border-top-color: rgba(240,165,0,0.6); animation: spin 2s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .core {
+      width: 40px; height: 40px;
+      background: radial-gradient(circle, var(--cyan), rgba(0,212,255,0.3));
+      border-radius: 50%;
+      animation: corePulse 2s ease-in-out infinite;
+      box-shadow: 0 0 30px var(--cyan);
+      position: absolute;
+    }
+    @keyframes corePulse { 0%,100%{transform:scale(1);box-shadow:0 0 30px var(--cyan)} 50%{transform:scale(1.3);box-shadow:0 0 60px var(--cyan)} }
+
+    /* Floating particles in card */
+    .card-particle {
+      position: absolute; border-radius: 50%;
+      background: var(--cyan);
+      animation: floatParticle linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatParticle { 0%{transform:translateY(100%) translateX(0);opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{transform:translateY(-100%) translateX(var(--dx));opacity:0} }
+
+    .nft-id { position: absolute; top: 16px; right: 16px; font-size: 10px; letter-spacing: 2px; color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); padding: 4px 10px; background: rgba(2,5,8,0.7); animation: blink 3s infinite; }
+    @keyframes blink { 0%,90%,100%{opacity:1} 95%{opacity:0.3} }
+
+    .nft-info { padding: 20px; }
+    .nft-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 4px; }
+    .nft-collection { font-size: 11px; color: var(--dim); letter-spacing: 1px; margin-bottom: 16px; }
+    .nft-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .nft-price-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+    .nft-price { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 20px; color: var(--cyan); }
+    .nft-price span { font-size: 12px; color: var(--dim); font-family: 'DM Mono', monospace; font-weight: 400; }
+    .btn-bid { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 10px 20px; background: var(--cyan); color: var(--bg); border: none; cursor: none; font-family: 'DM Mono', monospace; transition: all 0.2s; position: relative; overflow: hidden; }
+    .btn-bid:hover { box-shadow: 0 0 20px rgba(0,212,255,0.5); transform: scale(1.03); }
+
+    /* COUNTDOWN */
+    .countdown { display: flex; gap: 16px; margin-top: 14px; }
+    .cd-item { text-align: center; }
+    .cd-num { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; color: var(--white); display: block; }
+    .cd-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); }
+
+    /* TICKER */
+    .ticker { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 14px 0; overflow: hidden; white-space: nowrap; background: var(--bg2); position: relative; z-index: 2; }
+    .ticker-inner { display: inline-block; animation: ticker 22s linear infinite; }
+    .ticker-inner span { font-size: 12px; letter-spacing: 3px; color: var(--dim); padding: 0 32px; }
+    .ticker-inner .up { color: var(--green); }
+    .ticker-inner .down { color: var(--red); }
+    @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* FEATURES */
+    .features { padding: 100px 48px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); margin-bottom: 16px; display: block; }
+    .section-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(32px, 5vw, 56px); line-height: 1.1; color: var(--white); margin-bottom: 60px; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .feature-card { background: var(--card); padding: 40px 32px; transition: all 0.3s; position: relative; overflow: hidden; }
+    .feature-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); opacity: 0; transition: opacity 0.3s; }
+    .feature-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(0,212,255,0.05), transparent 70%); opacity: 0; transition: opacity 0.3s; }
+    .feature-card:hover { transform: translateY(-4px); }
+    .feature-card:hover::before, .feature-card:hover::after { opacity: 1; }
+    .feature-icon { width: 48px; height: 48px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 24px; transition: all 0.3s; }
+    .feature-card:hover .feature-icon { border-color: var(--cyan); box-shadow: 0 0 16px rgba(0,212,255,0.2); }
+    .feature-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 12px; }
+    .feature-desc { color: var(--dim); font-size: 13px; line-height: 1.7; }
+
+    /* NFT GRID */
+    .nft-section { padding: 0 48px 100px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+    .nft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .nft-card { background: var(--card); overflow: hidden; cursor: none; position: relative; }
+    .nft-card::after { content: 'VIEW'; position: absolute; inset: 0; background: rgba(0,212,255,0.1); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 4px; color: var(--cyan); opacity: 0; transition: opacity 0.3s; backdrop-filter: blur(2px); }
+    .nft-card:hover::after { opacity: 1; }
+    .nft-card-img { aspect-ratio: 1; overflow: hidden; position: relative; }
+    .nft-card-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8) saturate(0.9); transition: transform 0.5s, filter 0.3s; }
+    .nft-card:hover .nft-card-img img { transform: scale(1.08); filter: brightness(1) saturate(1.2); }
+    .nft-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(2,5,8,0.8) 0%, transparent 60%); }
+    .nft-card-num { position: absolute; top: 12px; right: 12px; font-size: 9px; letter-spacing: 2px; color: var(--cyan); border: 1px solid rgba(0,212,255,0.4); padding: 3px 8px; background: rgba(2,5,8,0.7); }
+    .nft-card-body { padding: 16px 20px 20px; }
+    .nft-card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .nft-card-series { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-bottom: 14px; }
+    .nft-card-footer { display: flex; justify-content: space-between; align-items: center; }
+    .nft-card-price { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: var(--cyan); }
+    .nft-card-likes { font-size: 11px; color: var(--dim); transition: color 0.2s; cursor: none; }
+    .nft-card-likes:hover { color: var(--red); }
+
+    /* STATS */
+    .stats-band { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 60px 48px; position: relative; z-index: 2; }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stats-item { padding: 0 40px; border-right: 1px solid var(--border); text-align: center; }
+    .stats-item:first-child { padding-left: 0; }
+    .stats-item:last-child { border-right: none; }
+    .stats-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 42px; color: var(--white); line-height: 1; margin-bottom: 8px; }
+    .stats-num span { color: var(--cyan); }
+    .stats-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim); }
+
+    /* CTA */
+    .cta { padding: 100px 48px; text-align: center; position: relative; overflow: hidden; z-index: 2; }
+    .cta::before { content: ''; position: absolute; width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(0,212,255,0.07) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); animation: orbFloat 5s ease-in-out infinite; }
+    .cta-inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 60px); line-height: 1.1; margin-bottom: 20px; }
+    .cta-title span { color: var(--cyan); }
+    .cta-desc { color: var(--dim); font-size: 14px; line-height: 1.8; margin-bottom: 40px; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
+    footer span { font-size: 11px; color: var(--dim); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cyan); }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(2,5,8,0.92); backdrop-filter: blur(8px); z-index: 200; display: none; align-items: center; justify-content: center; }
+    .modal-overlay.show { display: flex; }
+    .modal { background: var(--card); border: 1px solid var(--border); width: 400px; padding: 40px; position: relative; animation: modalIn 0.3s ease; }
+    @keyframes modalIn { from{transform:scale(0.9) translateY(20px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
+    .modal::before { content: ''; position: absolute; top: -1px; left: 20%; right: 20%; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+    .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: var(--dim); font-size: 20px; cursor: none; transition: color 0.2s; }
+    .modal-close:hover { color: var(--white); }
+    .modal-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 20px; margin-bottom: 8px; }
+    .modal-sub { font-size: 11px; color: var(--dim); letter-spacing: 1px; margin-bottom: 28px; }
+    .wallet-option { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--border); margin-bottom: 8px; cursor: none; transition: all 0.2s; }
+    .wallet-option:hover { border-color: var(--cyan); background: rgba(0,212,255,0.03); transform: translateX(4px); }
+    .wallet-option-icon { font-size: 24px; }
+    .wallet-option-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px; }
+    .wallet-option-desc { font-size: 10px; color: var(--dim); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s, transform 0.8s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 20px 60px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .features { padding: 60px 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .nft-section { padding: 0 20px 60px; }
+      .nft-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stats-item { border-bottom: 1px solid var(--border); padding: 20px; }
+      .cta { padding: 60px 20px; }
+      footer { padding: 20px; flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particleCanvas" width="1366" height="599"></canvas>
+  <div class="cursor" id="cursor" style="left: 1125px; top: -2px;"></div>
+  <div class="cursor-ring" id="cursorRing" style="left: 1111px; top: -16px;"></div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="walletModal">
+    <div class="modal" style="width:420px;">
+      <button class="modal-close" id="modalClose">×</button>
+
+      <!-- Default view -->
+      <div id="walletSelectView" style="display: block;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+          <div style="width:36px;height:36px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);display:flex;align-items:center;justify-content:center;font-size:16px;">🔗</div>
+          <div>
+            <div class="modal-title" style="margin-bottom:0;">Connect Wallet</div>
+          </div>
+        </div>
+        <div class="modal-sub" style="margin-bottom:20px;">Select a wallet to connect to NEXUS marketplace</div>
+
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:10px;">Popular</div>
+
+        <div class="wallet-option" onclick="connectWallet(&#39;MetaMask&#39;)">
+          <span class="wallet-option-icon">🦊</span>
+          <div style="flex:1"><div class="wallet-option-name">MetaMask</div><div class="wallet-option-desc">Browser extension wallet</div></div>
+          <span style="font-size:9px;color:var(--cyan);letter-spacing:1px;">POPULAR</span>
+        </div>
+        <div class="wallet-option" onclick="connectWallet(&#39;Bybit&#39;)">
+          <span class="wallet-option-icon" style="background:#f7a600;border-radius:4px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#000;font-family:&#39;Syne&#39;,sans-serif;">B</span>
+          <div style="flex:1"><div class="wallet-option-name">Bybit Wallet</div><div class="wallet-option-desc">Connect with Bybit exchange wallet</div></div>
+        </div>
+        <div class="wallet-option" onclick="connectWallet(&#39;WalletConnect&#39;)">
+          <span class="wallet-option-icon">🔗</span>
+          <div style="flex:1"><div class="wallet-option-name">WalletConnect</div><div class="wallet-option-desc">Scan QR with any mobile wallet</div></div>
+        </div>
+        <div class="wallet-option" onclick="connectWallet(&#39;Coinbase&#39;)">
+          <span class="wallet-option-icon">🔵</span>
+          <div style="flex:1"><div class="wallet-option-name">Coinbase Wallet</div><div class="wallet-option-desc">Connect with Coinbase</div></div>
+        </div>
+
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin:16px 0 10px;">More Wallets</div>
+
+        <div class="wallet-option" onclick="connectWallet(&#39;Trust Wallet&#39;)">
+          <span class="wallet-option-icon">🛡️</span>
+          <div style="flex:1"><div class="wallet-option-name">Trust Wallet</div><div class="wallet-option-desc">Multi-chain mobile wallet</div></div>
+        </div>
+        <div class="wallet-option" onclick="connectWallet(&#39;Phantom&#39;)">
+          <span class="wallet-option-icon">👻</span>
+          <div style="flex:1"><div class="wallet-option-name">Phantom</div><div class="wallet-option-desc">Solana &amp; Ethereum wallet</div></div>
+        </div>
+        <div class="wallet-option" onclick="connectWallet(&#39;Bitcoin&#39;)">
+          <span class="wallet-option-icon" style="background:#f7931a;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;">₿</span>
+          <div style="flex:1"><div class="wallet-option-name">Bitcoin Wallet</div><div class="wallet-option-desc">Connect via Bitcoin network</div></div>
+          <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">BTC</span>
+        </div>
+
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:10px;color:var(--dim);text-align:center;line-height:1.6;">
+          By connecting, you agree to our <span style="color:var(--cyan);cursor:pointer;">Terms of Service</span> and <span style="color:var(--cyan);cursor:pointer;">Privacy Policy</span>
+        </div>
+      </div>
+
+      <!-- Connecting view -->
+      <div id="walletConnectingView" style="display: none; text-align: center; padding: 20px 0px;">
+        <div style="width:64px;height:64px;border:2px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 24px;"></div>
+        <div class="modal-title" id="connectingName">Connecting to Phantom...</div>
+        <div class="modal-sub">Waiting for wallet confirmation</div>
+        <div style="font-size:11px;color:var(--dim);margin-top:8px;">Please approve the connection in your wallet</div>
+      </div>
+
+      <!-- Connected view -->
+      <div id="walletConnectedView" style="display: none; text-align: center; padding: 20px 0px;">
+        <div style="width:64px;height:64px;background:rgba(0,255,136,0.1);border:1px solid var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 24px;">✓</div>
+        <div class="modal-title">Wallet Connected!</div>
+        <div class="modal-sub" id="connectedName" style="margin-bottom:16px;">Phantom connected successfully</div>
+        <div style="background:var(--bg);border:1px solid var(--border);padding:12px 16px;font-size:12px;color:var(--cyan);letter-spacing:1px;margin-bottom:24px;" id="connectedAddr">0x5fe0...2ee9</div>
+        <button class="btn-primary" style="width:100%;" onclick="document.getElementById(&#39;walletModal&#39;).classList.remove(&#39;show&#39;)">Start Exploring</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#" class="nav-logo">NEX<span>US</span></a>
+    <ul class="nav-links">
+      <li><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#features">Features</a></li>
+      <li><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#explore">Explore</a></li>
+      <li><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#stats">Stats</a></li>
+    </ul>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <div class="wallet-status" id="walletStatus" style="display: flex;">
+        <div class="wallet-dot"></div>
+        <span id="walletAddr">0x5fe0...2ee9</span>
+      </div>
+      <button class="btn-connect" id="connectBtn" onclick="openModal()" style="display: none;">Connect Wallet</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tag">Live on Ethereum Mainnet</div>
+        <h1 class="hero-title">
+          OWN THE<br>
+          <span class="outline">FUTURE OF</span><br>
+          <span class="accent glitch" data-text="DIGITAL ART" style="background: linear-gradient(90deg, #00d4ff, #00ff88, #00d4ff); background-size: 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradShift 3s linear infinite, glitch1 4s infinite; filter: drop-shadow(0 0 20px rgba(0,212,255,0.5));">DIGITAL ART</span>
+        </h1>
+        <p class="hero-desc">The premier marketplace for rare digital assets. Discover, collect, and trade extraordinary NFTs from the world's top creators — secured on-chain, owned forever.</p>
+        <div class="hero-btns">
+          <a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#explore" class="btn-primary">Explore Collection</a>
+          <button class="btn-secondary" onclick="openModal()">Connect Wallet</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-val"><span class="count" data-count="142">142</span>K+</span><span class="stat-label">Total Items</span></div>
+          <div class="stat"><span class="stat-val">$<span class="count" data-count="48">48</span>M</span><span class="stat-label">Total Volume</span></div>
+          <div class="stat"><span class="stat-val"><span class="count" data-count="12">12</span>K+</span><span class="stat-label">Collectors</span></div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="nft-scene" id="nftScene">
+          <div class="nft-showcase" id="nftCard" style="transform: rotateY(0deg) rotateX(0deg); box-shadow: rgba(0, 212, 255, 0.1) 0px 0px 60px;">
+            <div class="nft-image">
+              <div class="ring ring1"></div>
+              <div class="ring ring2"></div>
+              <div class="ring ring3"></div>
+              <div class="ring ring4"></div>
+              <div class="arc arc1"></div>
+              <div class="arc arc2"></div>
+              <div class="arc arc3"></div>
+              <div class="core"></div>
+              <span class="nft-id">#0042</span>
+            </div>
+            <div class="nft-info">
+              <div class="nft-name">NEXUS Genesis #42</div>
+              <div class="nft-collection">NEXUS Genesis Collection</div>
+              <div class="nft-bottom">
+                <div>
+                  <div class="nft-price-label">Current Bid</div>
+                  <div class="nft-price">2.4 <span>ETH</span></div>
+                </div>
+                <button class="btn-bid" onclick="openModal()">Place Bid</button>
+              </div>
+              <div class="countdown" id="countdown">
+                <div class="cd-item"><span class="cd-num" id="cdH">08</span><span class="cd-label">Hrs</span></div>
+                <div class="cd-item"><span class="cd-num" id="cdM">18</span><span class="cd-label">Min</span></div>
+                <div class="cd-item"><span class="cd-num" id="cdS">55</span><span class="cd-label">Sec</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span>ETH <span class="up">$3,241.50 ▲2.4%</span></span>
+      <span>BTC <span class="up">$67,420 ▲1.8%</span></span>
+      <span>SOL <span class="down">$142.30 ▼0.6%</span></span>
+      <span>APE <span class="up">$1.84 ▲5.2%</span></span>
+      <span>MATIC <span class="up">$0.92 ▲3.1%</span></span>
+      <span>NEXUS FLOOR: 0.8 ETH</span>
+      <span>24H VOLUME: 142 ETH</span>
+      <span>ETH <span class="up">$3,241.50 ▲2.4%</span></span>
+      <span>BTC <span class="up">$67,420 ▲1.8%</span></span>
+      <span>SOL <span class="down">$142.30 ▼0.6%</span></span>
+      <span>APE <span class="up">$1.84 ▲5.2%</span></span>
+      <span>MATIC <span class="up">$0.92 ▲3.1%</span></span>
+      <span>NEXUS FLOOR: 0.8 ETH</span>
+      <span>24H VOLUME: 142 ETH</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <span class="section-tag reveal visible">Why NEXUS</span>
+    <h2 class="section-title reveal visible">Built for the<br>next generation</h2>
+    <div class="features-grid">
+      <div class="feature-card reveal visible"><div class="feature-icon">⛓️</div><h3 class="feature-title">On-Chain Ownership</h3><p class="feature-desc">Every asset is minted directly on Ethereum mainnet. Your ownership is immutable, verifiable, and permanent.</p></div>
+      <div class="feature-card reveal visible"><div class="feature-icon">⚡</div><h3 class="feature-title">Instant Settlement</h3><p class="feature-desc">Trades settle in seconds with gas-optimised smart contracts. No waiting, no middlemen, no delays.</p></div>
+      <div class="feature-card reveal visible"><div class="feature-icon">🔐</div><h3 class="feature-title">Wallet Security</h3><p class="feature-desc">Non-custodial by design. We never hold your keys. Your assets stay in your wallet until you choose to sell.</p></div>
+      <div class="feature-card reveal visible"><div class="feature-icon">💎</div><h3 class="feature-title">Curated Collections</h3><p class="feature-desc">Every collection is reviewed by our team. Only the highest quality digital art makes it onto NEXUS.</p></div>
+      <div class="feature-card reveal visible"><div class="feature-icon">📊</div><h3 class="feature-title">Real-Time Analytics</h3><p class="feature-desc">Track floor prices, volume, and rarity scores in real time. Make informed decisions with live market data.</p></div>
+      <div class="feature-card reveal visible"><div class="feature-icon">🌐</div><h3 class="feature-title">Multi-Chain Support</h3><p class="feature-desc">Trade across Ethereum, Polygon, and Solana. One wallet, one platform, the entire Web3 ecosystem.</p></div>
+    </div>
+  </section>
+
+  <!-- NFT VIEW MODAL -->
+  <div class="modal-overlay" id="nftViewModal" style="display: none; opacity: 1;">
+    <div class="modal" style="width:520px;max-width:95vw;">
+      <button class="modal-close" id="nftModalClose">×</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+        <div>
+          <img id="nftModalImg" src="./NEXUS — The Future of Digital Assets_files/photo-1639762681485-074b7f938ba0" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;">
+        </div>
+        <div>
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;" id="nftModalSeries">Dark Matter</div>
+          <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:22px;margin-bottom:6px;" id="nftModalName">Void Walker #7</div>
+          <div style="font-size:10px;letter-spacing:2px;color:var(--dim);margin-bottom:20px;" id="nftModalNum">#0007</div>
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:6px;">Current Price</div>
+          <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:28px;color:var(--cyan);margin-bottom:20px;" id="nftModalPrice">0.85 ETH</div>
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:12px;">Details</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;"><span style="color:var(--dim);">Blockchain</span><span>Ethereum</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;"><span style="color:var(--dim);">Token Standard</span><span>ERC-721</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;" id="nftModalLikes"><span style="color:var(--dim);">Likes</span><span>♥ 192</span></div>
+          </div>
+          <button class="btn-primary" style="width:100%;text-align:center;" onclick="openModal()">Place Bid</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NFT GRID -->
+  <section class="nft-section" id="explore">
+    <span class="section-tag reveal visible">Trending Now</span>
+    <h2 class="section-title reveal visible">Top Collections</h2>
+    <div class="nft-grid reveal visible" style="grid-template-columns:repeat(3,1fr);">
+      <div class="nft-card" onclick="viewNFT(&#39;Cyber Genesis #1&#39;,&#39;NEXUS Genesis&#39;,&#39;#0001&#39;,&#39;1.2 ETH&#39;,&#39;https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=600&#39;,&#39;♥ 248&#39;)">
+        <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1634986666676-ec8fd927c23d" alt="NFT 1"><div class="nft-card-overlay"></div><span class="nft-card-num">#0001</span></div>
+        <div class="nft-card-body"><div class="nft-card-name">Cyber Genesis #1</div><div class="nft-card-series">NEXUS Genesis</div><div class="nft-card-footer"><div class="nft-card-price">1.2 ETH</div><div class="nft-card-likes">♥ 248</div></div></div>
+      </div>
+      <div class="nft-card" onclick="viewNFT(&#39;Void Walker #7&#39;,&#39;Dark Matter&#39;,&#39;#0007&#39;,&#39;0.85 ETH&#39;,&#39;https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&#39;,&#39;♥ 192&#39;)">
+        <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1639762681485-074b7f938ba0(1)" alt="NFT 2"><div class="nft-card-overlay"></div><span class="nft-card-num">#0007</span></div>
+        <div class="nft-card-body"><div class="nft-card-name">Void Walker #7</div><div class="nft-card-series">Dark Matter</div><div class="nft-card-footer"><div class="nft-card-price">0.85 ETH</div><div class="nft-card-likes">♥ 192</div></div></div>
+      </div>
+      <div class="nft-card" onclick="viewNFT(&#39;Neon Pulse #23&#39;,&#39;Electric Dreams&#39;,&#39;#0023&#39;,&#39;2.1 ETH&#39;,&#39;https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?w=600&#39;,&#39;♥ 407&#39;)">
+        <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1620321023374-d1a68fbc720d" alt="NFT 3"><div class="nft-card-overlay"></div><span class="nft-card-num">#0023</span></div>
+        <div class="nft-card-body"><div class="nft-card-name">Neon Pulse #23</div><div class="nft-card-series">Electric Dreams</div><div class="nft-card-footer"><div class="nft-card-price">2.1 ETH</div><div class="nft-card-likes">♥ 407</div></div></div>
+      </div>
+      <div class="nft-card" onclick="viewNFT(&#39;Shadow Protocol #14&#39;,&#39;Phantom Series&#39;,&#39;#0014&#39;,&#39;3.4 ETH&#39;,&#39;https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&#39;,&#39;♥ 531&#39;)">
+        <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1558618666-fcd25c85cd64" alt="NFT 4"><div class="nft-card-overlay"></div><span class="nft-card-num">#0014</span></div>
+        <div class="nft-card-body"><div class="nft-card-name">Shadow Protocol #14</div><div class="nft-card-series">Phantom Series</div><div class="nft-card-footer"><div class="nft-card-price">3.4 ETH</div><div class="nft-card-likes">♥ 531</div></div></div>
+      </div>
+      <div class="nft-card" onclick="viewNFT(&#39;Aurora Drift #8&#39;,&#39;Cosmic Waves&#39;,&#39;#0008&#39;,&#39;1.75 ETH&#39;,&#39;https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&#39;,&#39;♥ 319&#39;)">
+        <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1446776811953-b23d57bd21aa" alt="NFT 5"><div class="nft-card-overlay"></div><span class="nft-card-num">#0008</span></div>
+        <div class="nft-card-body"><div class="nft-card-name">Aurora Drift #8</div><div class="nft-card-series">Cosmic Waves</div><div class="nft-card-footer"><div class="nft-card-price">1.75 ETH</div><div class="nft-card-likes">♥ 319</div></div></div>
+      </div>
+      <div class="nft-card" onclick="viewNFT(&#39;Fractal Mind #33&#39;,&#39;Deep Space&#39;,&#39;#0033&#39;,&#39;0.95 ETH&#39;,&#39;https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&#39;,&#39;♥ 274&#39;)">
+        <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1541701494587-cb58502866ab" alt="NFT 6"><div class="nft-card-overlay"></div><span class="nft-card-num">#0033</span></div>
+        <div class="nft-card-body"><div class="nft-card-name">Fractal Mind #33</div><div class="nft-card-series">Deep Space</div><div class="nft-card-footer"><div class="nft-card-price">0.95 ETH</div><div class="nft-card-likes">♥ 274</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-band" id="stats">
+    <div class="stats-inner">
+      <div class="stats-item reveal visible"><div class="stats-num">142<span>K</span></div><div class="stats-label">Total NFTs</div></div>
+      <div class="stats-item reveal visible"><div class="stats-num">$48<span>M</span></div><div class="stats-label">Volume Traded</div></div>
+      <div class="stats-item reveal visible"><div class="stats-num">12<span>K</span></div><div class="stats-label">Collectors</div></div>
+      <div class="stats-item reveal visible"><div class="stats-num">840<span>+</span></div><div class="stats-label">Creators</div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-inner">
+      <h2 class="cta-title reveal visible">Ready to enter the<br><span>NEXUS</span>?</h2>
+      <p class="cta-desc reveal visible">Connect your wallet and start collecting rare digital assets from the world's most exclusive NFT marketplace.</p>
+      <div class="cta-btns reveal visible">
+        <button class="btn-primary" onclick="openModal()">Connect Wallet</button>
+        <a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#explore" class="btn-secondary">Browse Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 NEXUS. Built by <a href="https://morgan1805.github.io/portfolio-morgan" style="color:var(--cyan);text-decoration:none;">Morgan</a></span>
+    <div class="footer-links">
+      <a href="https://x.com/Morgan_1805" target="_blank">Twitter</a><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#" onclick="copyDiscordFooter()">Discord</a><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#">Docs</a><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#">Terms</a>
+    </div>
+  </footer>
+
+  <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx - 4 + 'px';
+      cursor.style.top = my - 4 + 'px';
+    });
+    function animRing() {
+      rx += (mx - rx - 18) * 0.1;
+      ry += (my - ry - 18) * 0.1;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+
+    // 3D CARD TILT
+    const nftCard = document.getElementById('nftCard');
+    const scene = document.getElementById('nftScene');
+    if (scene) {
+      scene.addEventListener('mousemove', e => {
+        const r = scene.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        nftCard.style.transform = `rotateY(${x * 20}deg) rotateX(${-y * 20}deg)`;
+        nftCard.style.boxShadow = `${-x * 20}px ${y * 20}px 60px rgba(0,212,255,0.15)`;
+      });
+      scene.addEventListener('mouseleave', () => {
+        nftCard.style.transform = 'rotateY(0) rotateX(0)';
+        nftCard.style.boxShadow = '0 0 60px rgba(0,212,255,0.1)';
+      });
+    }
+
+    // PARTICLE CANVAS
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.3,
+        dx: (Math.random() - 0.5) * 0.4,
+        dy: (Math.random() - 0.5) * 0.4,
+        o: Math.random() * 0.5 + 0.1,
+        color: Math.random() > 0.7 ? '#00d4ff' : Math.random() > 0.5 ? '#00ff88' : '#8fa8c0'
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, i) => {
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.o;
+        ctx.fill();
+        // Connect nearby particles
+        particles.slice(i + 1).forEach(p2 => {
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = '#00d4ff';
+            ctx.globalAlpha = (1 - dist / 100) * 0.08;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        });
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    // COUNTER ANIMATION
+    function animateCount(el, target) {
+      let current = 0;
+      const step = target / 60;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = Math.floor(current) + (el.dataset.suffix || '');
+      }, 20);
+    }
+
+    const counters = document.querySelectorAll('.count[data-count]');
+    const countObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCount(e.target, parseInt(e.target.dataset.count));
+          countObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => countObs.observe(c));
+
+    // COUNTDOWN TIMER
+    let total = 8 * 3600 + 24 * 60;
+    function updateCountdown() {
+      if (total <= 0) {
+        total = Math.floor(Math.random() * 12 + 4) * 3600 + Math.floor(Math.random() * 60) * 60;
+        document.getElementById('nftModalName') && (document.getElementById('nftId') ? document.getElementById('nftId').textContent = '#00' + Math.floor(Math.random()*90+10) : null);
+      }
+      const h = Math.floor(total / 3600);
+      const m = Math.floor((total % 3600) / 60);
+      const s = total % 60;
+      document.getElementById('cdH').textContent = String(h).padStart(2,'0');
+      document.getElementById('cdM').textContent = String(m).padStart(2,'0');
+      document.getElementById('cdS').textContent = String(s).padStart(2,'0');
+      total--;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // NFT VIEW MODAL
+    function viewNFT(name, series, num, price, img, likes) {
+      document.getElementById('nftModalName').textContent = name;
+      document.getElementById('nftModalSeries').textContent = series;
+      document.getElementById('nftModalNum').textContent = num;
+      document.getElementById('nftModalPrice').textContent = price;
+      document.getElementById('nftModalImg').src = img;
+      document.getElementById('nftModalLikes').querySelector('span:last-child').textContent = likes;
+      const modal = document.getElementById('nftViewModal');
+      modal.style.display = 'flex';
+      setTimeout(() => modal.style.opacity = '1', 10);
+    }
+    document.getElementById('nftModalClose').addEventListener('click', () => {
+      document.getElementById('nftViewModal').style.display = 'none';
+    });
+    document.getElementById('nftViewModal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) e.currentTarget.style.display = 'none';
+    });
+
+    // WALLET MODAL
+    function openModal() {
+      document.getElementById('walletSelectView').style.display = 'block';
+      document.getElementById('walletConnectingView').style.display = 'none';
+      document.getElementById('walletConnectedView').style.display = 'none';
+      document.getElementById('walletModal').classList.add('show');
+    }
+    document.getElementById('modalClose').addEventListener('click', () => {
+      document.getElementById('walletModal').classList.remove('show');
+    });
+    document.getElementById('walletModal').addEventListener('click', e => { if (e.target === e.currentTarget) e.currentTarget.classList.remove('show'); });
+    function connectWallet(name) {
+      // Show connecting view
+      document.getElementById('walletSelectView').style.display = 'none';
+      document.getElementById('walletConnectingView').style.display = 'block';
+      document.getElementById('connectingName').textContent = 'Connecting to ' + name + '...';
+
+      // Simulate connection delay
+      setTimeout(() => {
+        document.getElementById('walletConnectingView').style.display = 'none';
+        document.getElementById('walletConnectedView').style.display = 'block';
+        document.getElementById('connectedName').textContent = name + ' connected successfully';
+        // Generate fake wallet address
+        const addr = '0x' + Math.random().toString(16).slice(2,6) + '...' + Math.random().toString(16).slice(2,6);
+        document.getElementById('connectedAddr').textContent = addr;
+        document.getElementById('walletAddr').textContent = addr;
+
+        // Update nav
+        document.getElementById('connectBtn').style.display = 'none';
+        document.getElementById('walletStatus').style.display = 'flex';
+      }, 2200);
+    }
+
+    function copyDiscordFooter(e) {
+      if(e) e.preventDefault();
+      navigator.clipboard.writeText('morgan_1805').then(() => {
+        const t = document.createElement('div');
+        t.textContent = 'Discord: morgan_1805 copied!';
+        t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#e8f4ff;color:#020508;padding:10px 20px;font-size:11px;letter-spacing:2px;z-index:9999;';
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2500);
+      });
+    }
+
+    // SCROLL REVEAL
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => obs.observe(el));
+  </script>
+
+
+</body></html>
