@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/USER/Downloads/nexus-nft_5.html -->
+<!-- saved from url=(0048)file:///C:/Users/USER/Downloads/nexus-nft_8.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -356,8 +356,8 @@
 <body>
 
   <canvas id="particleCanvas" width="1366" height="599"></canvas>
-  <div class="cursor" id="cursor" style="left: 1125px; top: -2px;"></div>
-  <div class="cursor-ring" id="cursorRing" style="left: 1111px; top: -16px;"></div>
+  <div class="cursor" id="cursor" style="left: 503px; top: 313px;"></div>
+  <div class="cursor-ring" id="cursorRing" style="left: 489px; top: 299px;"></div>
 
   <!-- MODAL -->
   <div class="modal-overlay" id="walletModal">
@@ -365,7 +365,7 @@
       <button class="modal-close" id="modalClose">×</button>
 
       <!-- Default view -->
-      <div id="walletSelectView" style="display: block;">
+      <div id="walletSelectView">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
           <div style="width:36px;height:36px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);display:flex;align-items:center;justify-content:center;font-size:16px;">🔗</div>
           <div>
@@ -416,19 +416,19 @@
       </div>
 
       <!-- Connecting view -->
-      <div id="walletConnectingView" style="display: none; text-align: center; padding: 20px 0px;">
+      <div id="walletConnectingView" style="display:none;text-align:center;padding:20px 0;">
         <div style="width:64px;height:64px;border:2px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 24px;"></div>
-        <div class="modal-title" id="connectingName">Connecting to Phantom...</div>
+        <div class="modal-title" id="connectingName">Connecting...</div>
         <div class="modal-sub">Waiting for wallet confirmation</div>
         <div style="font-size:11px;color:var(--dim);margin-top:8px;">Please approve the connection in your wallet</div>
       </div>
 
       <!-- Connected view -->
-      <div id="walletConnectedView" style="display: none; text-align: center; padding: 20px 0px;">
+      <div id="walletConnectedView" style="display:none;text-align:center;padding:20px 0;">
         <div style="width:64px;height:64px;background:rgba(0,255,136,0.1);border:1px solid var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 24px;">✓</div>
         <div class="modal-title">Wallet Connected!</div>
-        <div class="modal-sub" id="connectedName" style="margin-bottom:16px;">Phantom connected successfully</div>
-        <div style="background:var(--bg);border:1px solid var(--border);padding:12px 16px;font-size:12px;color:var(--cyan);letter-spacing:1px;margin-bottom:24px;" id="connectedAddr">0x5fe0...2ee9</div>
+        <div class="modal-sub" id="connectedName" style="margin-bottom:16px;"></div>
+        <div style="background:var(--bg);border:1px solid var(--border);padding:12px 16px;font-size:12px;color:var(--cyan);letter-spacing:1px;margin-bottom:24px;" id="connectedAddr">0x4f2a...3a9c</div>
         <button class="btn-primary" style="width:100%;" onclick="document.getElementById(&#39;walletModal&#39;).classList.remove(&#39;show&#39;)">Start Exploring</button>
       </div>
     </div>
@@ -436,18 +436,18 @@
 
   <!-- NAV -->
   <nav>
-    <a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#" class="nav-logo">NEX<span>US</span></a>
+    <a href="file:///C:/Users/USER/Downloads/nexus-nft_8.html#" class="nav-logo">NEX<span>US</span></a>
     <ul class="nav-links">
-      <li><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#features">Features</a></li>
-      <li><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#explore">Explore</a></li>
-      <li><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#stats">Stats</a></li>
+      <li><a href="file:///C:/Users/USER/Downloads/nexus-nft_8.html#features">Features</a></li>
+      <li><a href="file:///C:/Users/USER/Downloads/nexus-nft_8.html#explore">Explore</a></li>
+      <li><a href="file:///C:/Users/USER/Downloads/nexus-nft_8.html#stats">Stats</a></li>
     </ul>
     <div style="display:flex;gap:12px;align-items:center;">
-      <div class="wallet-status" id="walletStatus" style="display: flex;">
+      <div class="wallet-status" id="walletStatus" style="display:none">
         <div class="wallet-dot"></div>
-        <span id="walletAddr">0x5fe0...2ee9</span>
+        <span id="walletAddr">0x4f2...3a9c</span>
       </div>
-      <button class="btn-connect" id="connectBtn" onclick="openModal()" style="display: none;">Connect Wallet</button>
+      <button class="btn-connect" id="connectBtn" onclick="openModal()">Connect Wallet</button>
     </div>
   </nav>
 
@@ -465,18 +465,18 @@
         </h1>
         <p class="hero-desc">The premier marketplace for rare digital assets. Discover, collect, and trade extraordinary NFTs from the world's top creators — secured on-chain, owned forever.</p>
         <div class="hero-btns">
-          <a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#explore" class="btn-primary">Explore Collection</a>
+          <a href="file:///C:/Users/USER/Downloads/nexus-nft_8.html#explore" class="btn-primary">Explore Collection</a>
           <button class="btn-secondary" onclick="openModal()">Connect Wallet</button>
         </div>
         <div class="hero-stats">
-          <div class="stat"><span class="stat-val"><span class="count" data-count="142">142</span>K+</span><span class="stat-label">Total Items</span></div>
-          <div class="stat"><span class="stat-val">$<span class="count" data-count="48">48</span>M</span><span class="stat-label">Total Volume</span></div>
-          <div class="stat"><span class="stat-val"><span class="count" data-count="12">12</span>K+</span><span class="stat-label">Collectors</span></div>
+          <div class="stat"><span class="stat-val"><span class="count" data-count="142">0</span>K+</span><span class="stat-label">Total Items</span></div>
+          <div class="stat"><span class="stat-val">$<span class="count" data-count="48">0</span>M</span><span class="stat-label">Total Volume</span></div>
+          <div class="stat"><span class="stat-val"><span class="count" data-count="12">0</span>K+</span><span class="stat-label">Collectors</span></div>
         </div>
       </div>
       <div class="hero-right">
         <div class="nft-scene" id="nftScene">
-          <div class="nft-showcase" id="nftCard" style="transform: rotateY(0deg) rotateX(0deg); box-shadow: rgba(0, 212, 255, 0.1) 0px 0px 60px;">
+          <div class="nft-showcase" id="nftCard">
             <div class="nft-image">
               <div class="ring ring1"></div>
               <div class="ring ring2"></div>
@@ -500,8 +500,8 @@
               </div>
               <div class="countdown" id="countdown">
                 <div class="cd-item"><span class="cd-num" id="cdH">08</span><span class="cd-label">Hrs</span></div>
-                <div class="cd-item"><span class="cd-num" id="cdM">18</span><span class="cd-label">Min</span></div>
-                <div class="cd-item"><span class="cd-num" id="cdS">55</span><span class="cd-label">Sec</span></div>
+                <div class="cd-item"><span class="cd-num" id="cdM">22</span><span class="cd-label">Min</span></div>
+                <div class="cd-item"><span class="cd-num" id="cdS">29</span><span class="cd-label">Sec</span></div>
               </div>
             </div>
           </div>
@@ -532,37 +532,37 @@
 
   <!-- FEATURES -->
   <section class="features" id="features">
-    <span class="section-tag reveal visible">Why NEXUS</span>
-    <h2 class="section-title reveal visible">Built for the<br>next generation</h2>
+    <span class="section-tag reveal">Why NEXUS</span>
+    <h2 class="section-title reveal">Built for the<br>next generation</h2>
     <div class="features-grid">
-      <div class="feature-card reveal visible"><div class="feature-icon">⛓️</div><h3 class="feature-title">On-Chain Ownership</h3><p class="feature-desc">Every asset is minted directly on Ethereum mainnet. Your ownership is immutable, verifiable, and permanent.</p></div>
-      <div class="feature-card reveal visible"><div class="feature-icon">⚡</div><h3 class="feature-title">Instant Settlement</h3><p class="feature-desc">Trades settle in seconds with gas-optimised smart contracts. No waiting, no middlemen, no delays.</p></div>
-      <div class="feature-card reveal visible"><div class="feature-icon">🔐</div><h3 class="feature-title">Wallet Security</h3><p class="feature-desc">Non-custodial by design. We never hold your keys. Your assets stay in your wallet until you choose to sell.</p></div>
-      <div class="feature-card reveal visible"><div class="feature-icon">💎</div><h3 class="feature-title">Curated Collections</h3><p class="feature-desc">Every collection is reviewed by our team. Only the highest quality digital art makes it onto NEXUS.</p></div>
-      <div class="feature-card reveal visible"><div class="feature-icon">📊</div><h3 class="feature-title">Real-Time Analytics</h3><p class="feature-desc">Track floor prices, volume, and rarity scores in real time. Make informed decisions with live market data.</p></div>
-      <div class="feature-card reveal visible"><div class="feature-icon">🌐</div><h3 class="feature-title">Multi-Chain Support</h3><p class="feature-desc">Trade across Ethereum, Polygon, and Solana. One wallet, one platform, the entire Web3 ecosystem.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">⛓️</div><h3 class="feature-title">On-Chain Ownership</h3><p class="feature-desc">Every asset is minted directly on Ethereum mainnet. Your ownership is immutable, verifiable, and permanent.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">⚡</div><h3 class="feature-title">Instant Settlement</h3><p class="feature-desc">Trades settle in seconds with gas-optimised smart contracts. No waiting, no middlemen, no delays.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">🔐</div><h3 class="feature-title">Wallet Security</h3><p class="feature-desc">Non-custodial by design. We never hold your keys. Your assets stay in your wallet until you choose to sell.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">💎</div><h3 class="feature-title">Curated Collections</h3><p class="feature-desc">Every collection is reviewed by our team. Only the highest quality digital art makes it onto NEXUS.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">📊</div><h3 class="feature-title">Real-Time Analytics</h3><p class="feature-desc">Track floor prices, volume, and rarity scores in real time. Make informed decisions with live market data.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">🌐</div><h3 class="feature-title">Multi-Chain Support</h3><p class="feature-desc">Trade across Ethereum, Polygon, and Solana. One wallet, one platform, the entire Web3 ecosystem.</p></div>
     </div>
   </section>
 
   <!-- NFT VIEW MODAL -->
-  <div class="modal-overlay" id="nftViewModal" style="display: none; opacity: 1;">
+  <div class="modal-overlay" id="nftViewModal" style="display:none;">
     <div class="modal" style="width:520px;max-width:95vw;">
       <button class="modal-close" id="nftModalClose">×</button>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
         <div>
-          <img id="nftModalImg" src="./NEXUS — The Future of Digital Assets_files/photo-1639762681485-074b7f938ba0" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;">
+          <img id="nftModalImg" src="file:///C:/Users/USER/Downloads/nexus-nft_8.html" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;">
         </div>
         <div>
-          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;" id="nftModalSeries">Dark Matter</div>
-          <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:22px;margin-bottom:6px;" id="nftModalName">Void Walker #7</div>
-          <div style="font-size:10px;letter-spacing:2px;color:var(--dim);margin-bottom:20px;" id="nftModalNum">#0007</div>
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;" id="nftModalSeries"></div>
+          <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:22px;margin-bottom:6px;" id="nftModalName"></div>
+          <div style="font-size:10px;letter-spacing:2px;color:var(--dim);margin-bottom:20px;" id="nftModalNum"></div>
           <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:6px;">Current Price</div>
-          <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:28px;color:var(--cyan);margin-bottom:20px;" id="nftModalPrice">0.85 ETH</div>
+          <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:28px;color:var(--cyan);margin-bottom:20px;" id="nftModalPrice"></div>
           <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:12px;">Details</div>
           <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
             <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;"><span style="color:var(--dim);">Blockchain</span><span>Ethereum</span></div>
             <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;"><span style="color:var(--dim);">Token Standard</span><span>ERC-721</span></div>
-            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;" id="nftModalLikes"><span style="color:var(--dim);">Likes</span><span>♥ 192</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;" id="nftModalLikes"><span style="color:var(--dim);">Likes</span><span></span></div>
           </div>
           <button class="btn-primary" style="width:100%;text-align:center;" onclick="openModal()">Place Bid</button>
         </div>
@@ -572,30 +572,30 @@
 
   <!-- NFT GRID -->
   <section class="nft-section" id="explore">
-    <span class="section-tag reveal visible">Trending Now</span>
-    <h2 class="section-title reveal visible">Top Collections</h2>
-    <div class="nft-grid reveal visible" style="grid-template-columns:repeat(3,1fr);">
-      <div class="nft-card" onclick="viewNFT(&#39;Cyber Genesis #1&#39;,&#39;NEXUS Genesis&#39;,&#39;#0001&#39;,&#39;1.2 ETH&#39;,&#39;https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=600&#39;,&#39;♥ 248&#39;)">
+    <span class="section-tag reveal">Trending Now</span>
+    <h2 class="section-title reveal">Top Collections</h2>
+    <div class="nft-grid reveal" style="grid-template-columns:repeat(3,1fr);">
+      <div class="nft-card" onclick="viewNFT(&#39;Cyber Genesis #1&#39;,&#39;NEXUS Genesis&#39;,&#39;#0001&#39;,&#39;1.2 ETH&#39;,&#39;https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=600&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&#39;,&#39;♥ 248&#39;)">
         <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1634986666676-ec8fd927c23d" alt="NFT 1"><div class="nft-card-overlay"></div><span class="nft-card-num">#0001</span></div>
         <div class="nft-card-body"><div class="nft-card-name">Cyber Genesis #1</div><div class="nft-card-series">NEXUS Genesis</div><div class="nft-card-footer"><div class="nft-card-price">1.2 ETH</div><div class="nft-card-likes">♥ 248</div></div></div>
       </div>
-      <div class="nft-card" onclick="viewNFT(&#39;Void Walker #7&#39;,&#39;Dark Matter&#39;,&#39;#0007&#39;,&#39;0.85 ETH&#39;,&#39;https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&#39;,&#39;♥ 192&#39;)">
-        <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1639762681485-074b7f938ba0(1)" alt="NFT 2"><div class="nft-card-overlay"></div><span class="nft-card-num">#0007</span></div>
+      <div class="nft-card" onclick="viewNFT(&#39;Void Walker #7&#39;,&#39;Dark Matter&#39;,&#39;#0007&#39;,&#39;0.85 ETH&#39;,&#39;https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&#39;,&#39;♥ 192&#39;)">
+        <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1639762681485-074b7f938ba0" alt="NFT 2"><div class="nft-card-overlay"></div><span class="nft-card-num">#0007</span></div>
         <div class="nft-card-body"><div class="nft-card-name">Void Walker #7</div><div class="nft-card-series">Dark Matter</div><div class="nft-card-footer"><div class="nft-card-price">0.85 ETH</div><div class="nft-card-likes">♥ 192</div></div></div>
       </div>
-      <div class="nft-card" onclick="viewNFT(&#39;Neon Pulse #23&#39;,&#39;Electric Dreams&#39;,&#39;#0023&#39;,&#39;2.1 ETH&#39;,&#39;https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?w=600&#39;,&#39;♥ 407&#39;)">
+      <div class="nft-card" onclick="viewNFT(&#39;Neon Pulse #23&#39;,&#39;Electric Dreams&#39;,&#39;#0023&#39;,&#39;2.1 ETH&#39;,&#39;https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?w=600&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&#39;,&#39;♥ 407&#39;)">
         <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1620321023374-d1a68fbc720d" alt="NFT 3"><div class="nft-card-overlay"></div><span class="nft-card-num">#0023</span></div>
         <div class="nft-card-body"><div class="nft-card-name">Neon Pulse #23</div><div class="nft-card-series">Electric Dreams</div><div class="nft-card-footer"><div class="nft-card-price">2.1 ETH</div><div class="nft-card-likes">♥ 407</div></div></div>
       </div>
-      <div class="nft-card" onclick="viewNFT(&#39;Shadow Protocol #14&#39;,&#39;Phantom Series&#39;,&#39;#0014&#39;,&#39;3.4 ETH&#39;,&#39;https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&#39;,&#39;♥ 531&#39;)">
+      <div class="nft-card" onclick="viewNFT(&#39;Shadow Protocol #14&#39;,&#39;Phantom Series&#39;,&#39;#0014&#39;,&#39;3.4 ETH&#39;,&#39;https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&#39;,&#39;♥ 531&#39;)">
         <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1558618666-fcd25c85cd64" alt="NFT 4"><div class="nft-card-overlay"></div><span class="nft-card-num">#0014</span></div>
         <div class="nft-card-body"><div class="nft-card-name">Shadow Protocol #14</div><div class="nft-card-series">Phantom Series</div><div class="nft-card-footer"><div class="nft-card-price">3.4 ETH</div><div class="nft-card-likes">♥ 531</div></div></div>
       </div>
-      <div class="nft-card" onclick="viewNFT(&#39;Aurora Drift #8&#39;,&#39;Cosmic Waves&#39;,&#39;#0008&#39;,&#39;1.75 ETH&#39;,&#39;https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&#39;,&#39;♥ 319&#39;)">
+      <div class="nft-card" onclick="viewNFT(&#39;Aurora Drift #8&#39;,&#39;Cosmic Waves&#39;,&#39;#0008&#39;,&#39;1.75 ETH&#39;,&#39;https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&#39;,&#39;♥ 319&#39;)">
         <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1446776811953-b23d57bd21aa" alt="NFT 5"><div class="nft-card-overlay"></div><span class="nft-card-num">#0008</span></div>
         <div class="nft-card-body"><div class="nft-card-name">Aurora Drift #8</div><div class="nft-card-series">Cosmic Waves</div><div class="nft-card-footer"><div class="nft-card-price">1.75 ETH</div><div class="nft-card-likes">♥ 319</div></div></div>
       </div>
-      <div class="nft-card" onclick="viewNFT(&#39;Fractal Mind #33&#39;,&#39;Deep Space&#39;,&#39;#0033&#39;,&#39;0.95 ETH&#39;,&#39;https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&#39;,&#39;♥ 274&#39;)">
+      <div class="nft-card" onclick="viewNFT(&#39;Fractal Mind #33&#39;,&#39;Deep Space&#39;,&#39;#0033&#39;,&#39;0.95 ETH&#39;,&#39;https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&#39;,&#39;♥ 274&#39;)">
         <div class="nft-card-img"><img src="./NEXUS — The Future of Digital Assets_files/photo-1541701494587-cb58502866ab" alt="NFT 6"><div class="nft-card-overlay"></div><span class="nft-card-num">#0033</span></div>
         <div class="nft-card-body"><div class="nft-card-name">Fractal Mind #33</div><div class="nft-card-series">Deep Space</div><div class="nft-card-footer"><div class="nft-card-price">0.95 ETH</div><div class="nft-card-likes">♥ 274</div></div></div>
       </div>
@@ -605,21 +605,21 @@
   <!-- STATS -->
   <div class="stats-band" id="stats">
     <div class="stats-inner">
-      <div class="stats-item reveal visible"><div class="stats-num">142<span>K</span></div><div class="stats-label">Total NFTs</div></div>
-      <div class="stats-item reveal visible"><div class="stats-num">$48<span>M</span></div><div class="stats-label">Volume Traded</div></div>
-      <div class="stats-item reveal visible"><div class="stats-num">12<span>K</span></div><div class="stats-label">Collectors</div></div>
-      <div class="stats-item reveal visible"><div class="stats-num">840<span>+</span></div><div class="stats-label">Creators</div></div>
+      <div class="stats-item reveal"><div class="stats-num">142<span>K</span></div><div class="stats-label">Total NFTs</div></div>
+      <div class="stats-item reveal"><div class="stats-num">$48<span>M</span></div><div class="stats-label">Volume Traded</div></div>
+      <div class="stats-item reveal"><div class="stats-num">12<span>K</span></div><div class="stats-label">Collectors</div></div>
+      <div class="stats-item reveal"><div class="stats-num">840<span>+</span></div><div class="stats-label">Creators</div></div>
     </div>
   </div>
 
   <!-- CTA -->
   <section class="cta">
     <div class="cta-inner">
-      <h2 class="cta-title reveal visible">Ready to enter the<br><span>NEXUS</span>?</h2>
-      <p class="cta-desc reveal visible">Connect your wallet and start collecting rare digital assets from the world's most exclusive NFT marketplace.</p>
-      <div class="cta-btns reveal visible">
+      <h2 class="cta-title reveal">Ready to enter the<br><span>NEXUS</span>?</h2>
+      <p class="cta-desc reveal">Connect your wallet and start collecting rare digital assets from the world's most exclusive NFT marketplace.</p>
+      <div class="cta-btns reveal">
         <button class="btn-primary" onclick="openModal()">Connect Wallet</button>
-        <a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#explore" class="btn-secondary">Browse Collection</a>
+        <a href="file:///C:/Users/USER/Downloads/nexus-nft_8.html#explore" class="btn-secondary">Browse Collection</a>
       </div>
     </div>
   </section>
@@ -628,7 +628,7 @@
   <footer>
     <span>© 2025 NEXUS. Built by <a href="https://morgan1805.github.io/portfolio-morgan" style="color:var(--cyan);text-decoration:none;">Morgan</a></span>
     <div class="footer-links">
-      <a href="https://x.com/Morgan_1805" target="_blank">Twitter</a><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#" onclick="copyDiscordFooter()">Discord</a><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#">Docs</a><a href="file:///C:/Users/USER/Downloads/nexus-nft_5.html#">Terms</a>
+      <a href="https://x.com/Morgan_1805" target="_blank">Twitter</a><a href="file:///C:/Users/USER/Downloads/nexus-nft_8.html#" onclick="copyDiscordFooter()">Discord</a><a href="file:///C:/Users/USER/Downloads/nexus-nft_8.html#">Docs</a><a href="file:///C:/Users/USER/Downloads/nexus-nft_8.html#">Terms</a>
     </div>
   </footer>
 
